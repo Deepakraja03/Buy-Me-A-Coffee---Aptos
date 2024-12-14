@@ -3,6 +3,7 @@ import { useState } from "react";
 import { createEntry as createEntryFunction } from "@/entry-functions/integrateContract";
 import { aptosClient } from "../utils/aptosClient";
 import { useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
 
 function Home() {
@@ -13,7 +14,10 @@ function Home() {
   const queryClient = useQueryClient();
 
   const buycoffee = async () => {
-    if (!account) return;
+    if (!account) {
+      toast.error("All fields are required. Please complete the form.");
+      return;
+    }
     if (!name || !message || !value) {
       console.error("All fields are required.");
       return;
@@ -25,7 +29,7 @@ function Home() {
         message,
         value: val
       });
-      
+      toast.loading("Processing your transaction...");
       const response = await signAndSubmitTransaction(transactionData);
       console.log("Transaction result", String(response.hash));
       await aptosClient().waitForTransaction({transactionHash: String(response.hash)});
@@ -33,7 +37,8 @@ function Home() {
       setName("");
       setMessage("");
       setValue("");
-      alert("Coffee bought successfully");
+      toast.dismiss();
+      toast.success("Coffee bought successfully! 🚀");
       return response;
     } catch (error) {
       console.error("Error buying Coffee", error);

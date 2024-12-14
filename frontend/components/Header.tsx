@@ -9,7 +9,8 @@ export function Header() {
     <header className="bg-gradient-to-r from-purple-500 to-pink-500 text-white py-4 shadow-lg">
       <div className="container mx-auto flex items-center justify-between flex-wrap px-4">
         {/* Branding */}
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-3 cursor-pointer" 
+        onClick={() => navigate('/')}>
           <div className="text-4xl">☕️</div>
           <h1 className="text-2xl font-bold">
             Buy Me A Coffee
