@@ -1,3 +1,4 @@
+import { APTOS_MOVE_MODULE_ADDR } from "@/constants";
 import { AptosClient } from "aptos";
 
 const client = new AptosClient("https://fullnode.devnet.aptoslabs.com");
@@ -5,7 +6,7 @@ const client = new AptosClient("https://fullnode.devnet.aptoslabs.com");
 export const fetchViewFunction = async () => {
   try {
     const result = await client.view({
-      function: "0xb79920fdc8ef2b365c789fe8b5c14b382e57463f17961c1c547af1ae176953e9::Coffee::get_all_coffee",
+      function: `${APTOS_MOVE_MODULE_ADDR}::Coffee::get_all_coffee`,
       type_arguments: [],
       arguments: [],
     });
@@ -19,7 +20,7 @@ export const fetchViewFunction = async () => {
 export const fetchViewFunctionByAddress = async (walletAddress : String) => {
   try {
     const result = await client.view({
-      function: "0xb79920fdc8ef2b365c789fe8b5c14b382e57463f17961c1c547af1ae176953e9::Coffee::get_coffee_by_address",
+      function: `${APTOS_MOVE_MODULE_ADDR}::Coffee::get_coffee_by_address`,
       type_arguments: [],
       arguments: [walletAddress],
     });
