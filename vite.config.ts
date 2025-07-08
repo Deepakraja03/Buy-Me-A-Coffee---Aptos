@@ -40,6 +40,9 @@ export default defineConfig({
         display: "standalone",
         orientation: "portrait",
       },
+      workbox: {
+        maximumFileSizeToCacheInBytes: 7 * 1024 * 1024, // Allow up to 7MB
+      },
     }),
   ],
   resolve: {
